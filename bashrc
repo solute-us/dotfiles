@@ -196,3 +196,34 @@ export NODE_PATH=~/.config/yarn/global/node_modules/
 
 # The next line enables shell command completion for gcloud.
 if [ -f '/home/hitman/local/google-cloud-sdk/completion.bash.inc' ]; then . '/home/hitman/local/google-cloud-sdk/completion.bash.inc'; fi
+
+
+# for mobaxterm
+export DISPLAY=:0
+# for Docker on Windows (TLS disabled)
+export DOCKER_HOST=tcp://localhost:2375
+
+# for brew
+export PATH="$HOME/.local/bin:/usr/local/ec2/ec2-ami-tools-1.5.7/bin:$HOME/.linuxbrew/bin:$HOME/bin:/usr/local/bin:/usr/bin:/usr/sbin:$PATH"
+export MANPATH="$HOME/.linuxbrew/share/man:$MANPATH"
+export INFOPATH="$HOME/.linuxbrew/share/info:$INFOPATH"
+alias loginlocal='oc login https://ocp1.192.168.122.100.nip.io:8443 '
+alias loginaws='oc login https://master.oscp.aws-gov.solute.us:8443 --token=4HQOiKasHHUpcj8g2I0T4eJ5tU8EllI4v-Vi7wp11yw'
+alias adminrole='oadm policy add-cluster-role-to-user cluster-admin $1'
+alias ocgetall='oc get all -o name --selector app=$1'
+alias ocdeleteall='oc delete all --selector app=$1'
+alias ocendpoints='oc get endpoints --namespace=default --selector=router'
+alias ocgetrouter=" 'oc get pods --all-namespaces --selector=router --template='{{range .items}}HostIP: {{.status.hostIP}}   PodIP: {{.status.podIP}}{{end}}{{"\n"}}' "
+#alias oc-getpods="oc get pods -n $1 -o jsonpath='\{range .items[*].metadata\}\{\"Pod Name: \"\}\{.name\}\{\"\n\"\}\{end\}' "
+
+# iptables rules for EKF
+alias allowfluentd='sudo iptables -A OS_FIREWALL_ALLOW -p tcp -m state --state New -m tcp --dport 10250 -j ACCEPT'
+alias allow1936='sudo iptables -A OS_FIREWALL_ALLOW -p tcp -m state --state NEW -m tcp --dport 1936 -j ACCEPT'
+alias allowportno='sudo iptables -A OS_FIREWALL_ALLOW -p tcp -m state --state NEW -m tcp --dport $1 -j ACCEPT'
+
+#export KUBECONFIG='~/.kube/config-local'
+#export KUBECONFIG='~/.kube/config-aws'
+export KUBECONFIG='~/.kube/config'
+export EC2_AMITOOL_HOME=/usr/local/ec2/ec2-ami-tools-1.5.7
+
+

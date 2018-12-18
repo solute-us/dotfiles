@@ -22,6 +22,7 @@
 ;; C-f 'projectile-command-map, i.e. projectile hot-key
 ;; C-f l 'projectile-find-file-other-window
 ;; M-m 'whitespace-cleanup
+
 ;; M-z 'bwb-zap-whitespace-to-char  delete all whitespace up to first non-ws char or end-of-line
 ;; M-y counsel-yank-pop shows kill ring
 ;; C-j ivy-switch-buffer
@@ -46,13 +47,14 @@
 
 ;; passwords go in this private file
 ;; currently hold gitlab secrets
-(load "~/dotfiles/secrets/secrets.el")
+;; (load "~/dotfiles/secrets/secrets.el")
 
 (add-to-list 'load-path "~/.emacs.d/lisp")
 
 ;; packaging setup
 (require 'package)
 (setq package-archives '(
+			 ("melpa-stable" . "https://stable.melpa.org/packages/")
                          ("elpa" . "https://elpa.gnu.org/packages/")
                          ("melpa" . "https://melpa.org/packages/")
                          ("org" . "http://orgmode.org/elpa/")))
