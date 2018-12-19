@@ -30,7 +30,7 @@ fi
 
 # set a fancy prompt (non-color, unless we know we "want" color)
 case "$TERM" in
-    xterm-color) color_prompt=yes;;
+    xterm-color|*-256color) color_prompt=yes;;
 esac
 
 # uncomment for a colored prompt, if the terminal has the capability; turned
@@ -54,14 +54,14 @@ export PS1='$ '
 
 unset color_prompt force_color_prompt
 
-# # If this is an xterm set the title to user@host:dir
-# case "$TERM" in
-# xterm*|rxvt*)
-#     PS1="\[\e]0;${debian_chroot:+($debian_chroot)}\u@\h: \w\a\]$PS1"
-#     ;;
-# *)
-#     ;;
-# esac
+# If this is an xterm set the title to user@host:dir
+case "$TERM" in
+xterm*|rxvt*)
+    PS1="\[\e]0;${debian_chroot:+($debian_chroot)}\u@\h: \w\a\]$PS1"
+    ;;
+*)
+    ;;
+esac
 
 # enable color support of ls and also add handy aliases
 if [ -x /usr/bin/dircolors ]; then
@@ -74,6 +74,9 @@ if [ -x /usr/bin/dircolors ]; then
     alias fgrep='fgrep --color=auto'
     alias egrep='egrep --color=auto'
 fi
+
+# colored GCC warnings and errors
+#export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
 
 # some more ls aliases
 alias ll='ls -alF'
@@ -96,8 +99,12 @@ fi
 # enable programmable completion features (you don't need to enable
 # this, if it's already enabled in /etc/bash.bashrc and /etc/profile
 # sources /etc/bash.bashrc).
-if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
+if ! shopt -oq posix; then
+  if [ -f /usr/share/bash-completion/bash_completion ]; then
+    . /usr/share/bash-completion/bash_completion
+  elif [ -f /etc/bash_completion ]; then
     . /etc/bash_completion
+  fi
 fi
 
 if [ -d /usr/local/etc/bash_completion.d ] && ! shopt -oq posix; then
@@ -157,7 +164,6 @@ if [ ! -z "$(command -v brew)" ] ; then
    fi
 fi
 
-export PATH="/Users/hitman/bin:/home/hitman/bin:$GOPATH/bin/bin:/usr/local/sbin:/usr/local/bin:$PATH"
 
 YARN_GLOBAL="~/.config/yarn/global/node_modules/.bin"
 export PATH="$YARN_GLOBAL:$PATH"
@@ -204,11 +210,11 @@ export DISPLAY=:0
 export DOCKER_HOST=tcp://localhost:2375
 
 # for brew
-export PATH="$HOME/.local/bin:/usr/local/ec2/ec2-ami-tools-1.5.7/bin:$HOME/.linuxbrew/bin:$HOME/bin:/usr/local/bin:/usr/bin:/usr/sbin:$PATH"
+export PATH="$HOME/.local/bin:/usr/local/ec2/ec2-ami-tools-1.5.7/bin:$HOME/.linuxbrew/bin:$HOME/.linuxbrew/Homebrew/bin:$HOME/bin:/usr/local/bin:/usr/bin:/usr/sbin:$PATH"
 export MANPATH="$HOME/.linuxbrew/share/man:$MANPATH"
 export INFOPATH="$HOME/.linuxbrew/share/info:$INFOPATH"
-alias loginlocal='oc login https://ocp1.192.168.122.100.nip.io:8443 '
-alias loginaws='oc login https://master.oscp.aws-gov.solute.us:8443 --token=4HQOiKasHHUpcj8g2I0T4eJ5tU8EllI4v-Vi7wp11yw'
+
+# openshift
 alias adminrole='oadm policy add-cluster-role-to-user cluster-admin $1'
 alias ocgetall='oc get all -o name --selector app=$1'
 alias ocdeleteall='oc delete all --selector app=$1'
@@ -221,9 +227,12 @@ alias allowfluentd='sudo iptables -A OS_FIREWALL_ALLOW -p tcp -m state --state N
 alias allow1936='sudo iptables -A OS_FIREWALL_ALLOW -p tcp -m state --state NEW -m tcp --dport 1936 -j ACCEPT'
 alias allowportno='sudo iptables -A OS_FIREWALL_ALLOW -p tcp -m state --state NEW -m tcp --dport $1 -j ACCEPT'
 
+# Kubernetes
 #export KUBECONFIG='~/.kube/config-local'
 #export KUBECONFIG='~/.kube/config-aws'
 export KUBECONFIG='~/.kube/config'
+
+# AWS
 export EC2_AMITOOL_HOME=/usr/local/ec2/ec2-ami-tools-1.5.7
 
 
