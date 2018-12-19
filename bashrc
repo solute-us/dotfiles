@@ -112,8 +112,8 @@ if [ -d /usr/local/etc/bash_completion.d ] && ! shopt -oq posix; then
 fi
 
 
-alias scps="scp -i /home/hitman/chef-repo/.chef/id_rsa"
-alias sshS="ssh -i /home/hitman/chef-repo/.chef/id_rsa "
+alias scps="scp -i $HOME/.ssh/id_rsa"
+alias sshS="ssh -i $HOME/.ssh/id_rsa "
 alias b="bundle exec"
 #alias gnome-terminal="gnome-terminal -x screen"
 
@@ -158,11 +158,11 @@ function unset_aws {
     unset AWS_ACCESS_KEY AWS_ACCESS_KEY_ID AWS_SECRET_ACCESS_KEY AWS_SECRET_KEY
 }
 
-if [ ! -z "$(command -v brew)" ] ; then
-   if [ -f $(brew --prefix)/etc/bash_completion ]; then
-      . $(brew --prefix)/etc/bash_completion
-   fi
-fi
+#if [ ! -z "$(command -v brew)" ] ; then
+#   if [ -f $(brew --prefix)/etc/bash_completion ]; then
+#      . $(brew --prefix)/etc/bash_completion
+#   fi
+#fi
 
 
 YARN_GLOBAL="~/.config/yarn/global/node_modules/.bin"
