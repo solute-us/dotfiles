@@ -158,11 +158,16 @@ function unset_aws {
     unset AWS_ACCESS_KEY AWS_ACCESS_KEY_ID AWS_SECRET_ACCESS_KEY AWS_SECRET_KEY
 }
 
-#if [ ! -z "$(command -v brew)" ] ; then
-#   if [ -f $(brew --prefix)/etc/bash_completion ]; then
-#      . $(brew --prefix)/etc/bash_completion
-#   fi
-#fi
+install-brew () {
+	sh -c "$(curl -fsSL https://raw.githubusercontent.com/Linuxbrew/install/master/install.sh)"
+}
+
+
+if [ ! -z "$(command -v brew)" ] ; then
+   if [ -f $(brew --prefix)/etc/bash_completion ]; then
+      . $(brew --prefix)/etc/bash_completion
+   fi
+fi
 
 
 YARN_GLOBAL="~/.config/yarn/global/node_modules/.bin"
@@ -210,7 +215,7 @@ export DISPLAY=:0
 export DOCKER_HOST=tcp://localhost:2375
 
 # for brew
-export PATH="$HOME/.local/bin:/usr/local/ec2/ec2-ami-tools-1.5.7/bin:$HOME/.linuxbrew/bin:$HOME/.linuxbrew/Homebrew/bin:$HOME/bin:/usr/local/bin:/usr/bin:/usr/sbin:$PATH"
+export PATH="$HOME/.local/bin:/usr/local/ec2/ec2-ami-tools-1.5.7/bin:/home/linuxbrew/.linuxbrew/bin:$HOME/.linuxbrew/Homebrew/bin:$HOME/bin:/usr/local/bin:/usr/bin:/usr/sbin:$PATH"
 export MANPATH="$HOME/.linuxbrew/share/man:$MANPATH"
 export INFOPATH="$HOME/.linuxbrew/share/info:$INFOPATH"
 
@@ -235,4 +240,4 @@ export KUBECONFIG='~/.kube/config'
 # AWS
 export EC2_AMITOOL_HOME=/usr/local/ec2/ec2-ami-tools-1.5.7
 
-
+# SW development

@@ -2,3 +2,4 @@ source ~/.bashrc
 
 
 
+umask 002
