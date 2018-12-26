@@ -1,0 +1,3 @@
+[submodule "emacs.d/pydefjump"]
+	path = emacs.d/pydefjump
+	url = https://github.com/OpenSystemsLab/pydefjump.git
