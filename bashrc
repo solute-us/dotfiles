@@ -134,8 +134,9 @@ export GRADLE_HOME=/usr/local/gradle-4.5
 export M2_HOME=/usr/local/maven
 export EC2_HOME=/usr/local/Library/LinkedKegs/ec2-api-tools/libexec/
 export SCALA_HOME=/usr/local/Cellar/scala/
-export GOROOT=/usr/local/go
-export GOPATH=~/pr/go
+#export GOROOT=/usr/local/go
+export GOROOT=/home/linuxbrew/.linuxbrew/Cellar/go/1.11.4
+export GOPATH=~/go
 export GOBIN=$GOPATH/bin
 export PACKER_HOME=/usr/local/packer
 #alias node="env NODE_NO_READLINE=1 rlwrap node"

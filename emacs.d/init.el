@@ -3,7 +3,7 @@
 ;; emacs installation
 ;; https://github.com/d12frosted/homebrew-emacs-plus
 ;;  $ brew tap d12frosted/emacs-plus
-;;  $ brew install emacs-plus --without-spacemacs-icon
+;;  $ brew install emacs-plus --without-spacemacs-icon --without-ns
 ;;  $ brew link --overwrite emacs-plus
 ;; compilation on fedora
 ;; curl from http://gnu.mirror.globo.tech/emacs/ and untar
@@ -223,7 +223,6 @@
 
 (use-package dired-hacks-utils
   :ensure t)
-
                    
 ;;(define-key my-keys-minor-mode-map (kbd "C-l") 'other-window)
 (define-key global-map (kbd "C-l") 'other-window)
@@ -374,16 +373,17 @@
 (setq python-shell-interpreter-args "--simple-prompt --pprint")
 
 (put 'upcase-region 'disabled nil)
-
+;; custom addons
 ;; this is the only way to change the offset, customizing it otherwise
 ;; doesn't work
+(add-hook 'jedi-mode-hook 'jedi-direx:setup)
 (add-hook 'python-mode-hook
    (function (lambda ()                  
                (setq python-indent-offset 4)
+               (define-key python-mode-map "\C-cx" 'jedi-direx:pop-to-buffer)
                (define-key python-mode-map (kbd "C-i") 'elpy-company-backend)
                (define-key python-mode-map (kbd "<tab>") 'indent-for-tab-command)
                (setq-local counsel-dash-docsets '("Python 2")))))
-
 
 (use-package elpy :ensure t
   :config
@@ -633,7 +633,7 @@ _s_: bash strict mode
  '(imenu-anywhere-buffer-filter-functions (quote (imenu-anywhere-same-project-p)))
  '(package-selected-packages
    (quote
-    (company-gtags flymake-json smart-mode-line-powerline-theme js2-mode irony-eldoc flycheck-irony company-irony irony lsp-ui company-lsp lsp-mode lsp-javascript-typescript magit dockerfile-mode rjsx-mode rjsx indium js-comint helm-dash flymake-solidity solidity-mode go-mode projectile ivy buffer-move dracula-theme pyvenv ace-window atom-one-dark atom-dark-theme atom-one-dark-theme nov imenu-anywhere counsel-dash rubocop mmm-jinja2 groovy-mode company meghanada ivy-gitlab gitlab mvn dired-quick-sort hydra dired+ lorem-ipsum hc-zenburn-theme zenburn-theme swiper all-the-icons-ivy org org-brain undo-tree avy f s beacon vhdl-tools company-c-headers web-mode company-tern tern-auto-complete nodejs-repl tern mmm-mode better-shell py-autopep8 intero toml-mode haskell-mode ac-haskell-process tide dired-hacks-utils yaml-mode use-package typescript tablist sudo-edit spinner solarized-theme seq restclient queue powershell pdf-tools ox-pandoc org-present org-mobile-sync multi-eshell markdown-mode magit-gh-pulls know-your-http-well key-seq json-mode jinja2-mode ivy-hydra inf-ruby ido-vertical-mode helm-projectile helm-org-rifle helm-mt helm-gitlab helm-ag hcl-mode gradle-mode golint go-eldoc go-autocomplete gist ggtags flycheck flx-ido exec-path-from-shell eshell-manual elpy dumb-jump counsel-projectile clojure-mode cl-lib-highlight ansible-doc ag)))
+    (jedi-direx jedi company-gtags flymake-json smart-mode-line-powerline-theme js2-mode irony-eldoc flycheck-irony company-irony irony lsp-ui company-lsp lsp-mode lsp-javascript-typescript magit dockerfile-mode rjsx-mode rjsx indium js-comint helm-dash flymake-solidity solidity-mode go-mode projectile ivy buffer-move dracula-theme pyvenv ace-window atom-one-dark atom-dark-theme atom-one-dark-theme nov imenu-anywhere counsel-dash rubocop mmm-jinja2 groovy-mode company meghanada ivy-gitlab gitlab mvn dired-quick-sort hydra dired+ lorem-ipsum hc-zenburn-theme zenburn-theme swiper all-the-icons-ivy org org-brain undo-tree avy f s beacon vhdl-tools company-c-headers web-mode company-tern tern-auto-complete nodejs-repl tern mmm-mode better-shell py-autopep8 intero toml-mode haskell-mode ac-haskell-process tide dired-hacks-utils yaml-mode use-package typescript tablist sudo-edit spinner solarized-theme seq restclient queue powershell pdf-tools ox-pandoc org-present org-mobile-sync multi-eshell markdown-mode magit-gh-pulls know-your-http-well key-seq json-mode jinja2-mode ivy-hydra inf-ruby ido-vertical-mode helm-projectile helm-org-rifle helm-mt helm-gitlab helm-ag hcl-mode gradle-mode golint go-eldoc go-autocomplete gist ggtags flycheck flx-ido exec-path-from-shell eshell-manual elpy dumb-jump counsel-projectile clojure-mode cl-lib-highlight ansible-doc ag)))
  '(typescript-indent-level 2))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
